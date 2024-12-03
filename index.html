@@ -215,6 +215,24 @@ button {
     color: #FF6347; /* Tomato color for the link */
 }
 
+
+/* Instagram logo fixed to bottom-right corner */
+#instagramLogo {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    width: 50px;
+    height: 50px;
+    background-image: url('https://img.icons8.com/fluency-systems-regular/48/FD7E14/instagram-new--v1.png');
+    background-size: cover;
+    background-position: center;
+    border-radius: 50%;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    cursor: pointer;
+    z-index: 10000;
+}
+
+
 /* Button container for View Marks and Follow me */
 .button-container {
     display: flex;
@@ -277,11 +295,7 @@ button {
   <button id="goBackButton" onclick="goBack()">Go Back</button>
   <button id="contactMeButton" onclick="contactMe()">View CIE Marks</button>
   <!-- Instagram Button -->
-  <button id="instagramButton">
-    <a href="https://www.instagram.com/vardan.19" target="_blank" style="color: white; text-decoration: none; display: block; padding: 16px 32px; background-color: #FF6347; border-radius: 30px;">
-      Follow me on Instagram
-    </a>
-  </button>
+  
 </div>
 
 			
@@ -396,6 +410,10 @@ document.getElementById("attendanceForm").addEventListener("submit", function(ev
 	<!-- Floating Greeting -->
 	<div id="floatingGreeting" style="display: none;"></div>
 
+
+	<a href="https://www.instagram.com/vardn.19/" target="_blank">
+    <div id="instagramLogo"></div>
+</a>
 
 
 	</body>
