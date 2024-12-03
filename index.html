@@ -10,54 +10,55 @@
 		<!-- Add a new font link to the head section -->
 
 
-	<style>
-	/* General reset */
-	* {
-		margin: 0;
-		padding: 0;
-		box-sizing: border-box;
-	}
+<style>
+/* General reset */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
 
-	/* Apply Poppins font to all elements */
-	body, h1, h2, h3, h4, h5, h6, input, button, p {
-		font-family: 'Poppins', sans-serif;
-	}
+/* Apply Poppins font to all elements */
+body, h1, h2, h3, h4, h5, h6, input, button, p {
+    font-family: 'Poppins', sans-serif;
+}
 
-	/* Body styling */
-	body {
-		font-family: 'Poppins', sans-serif;
-		background-color: #F4F7FA; /* Light gray background */
-		display: flex;
-		justify-content: center;
-		align-items: flex-start; /* Align items at the top */
-		min-height: 100vh;
-		flex-direction: column;
-		width: 100%; /* Ensure full width of the screen */
-		padding-top: 70px; /* Give space for the floating greeting */
-		overflow-x: hidden; /* Prevent horizontal scrolling */
-	}
+/* Body styling */
+body {
+    font-family: 'Poppins', sans-serif;
+    background-color: #F4F7FA; /* Light gray background */
+    display: flex;
+    justify-content: center;
+    align-items: flex-start; /* Align items at the top */
+    min-height: 100vh;
+    flex-direction: column;
+    width: 100%; /* Ensure full width of the screen */
+    padding-top: 20px; /* Adjust space for the floating greeting */
+    overflow-x: hidden; /* Prevent horizontal scrolling */
+}
 
-	/* Container for the form */
-	.container {
-		background-color: #FFFFFF;
-		border-radius: 12px;
-		padding: 40px;
-		box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
-		width: 100%;
-		max-width: 600px;
-		text-align: center;
-		margin: 0 auto; /* Center the container */
-	}
+/* Container for the form */
+.container {
+    background-color: #FFFFFF;
+    border-radius: 12px;
+    padding: 30px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+    width: 100%;
+    max-width: 600px;
+    text-align: center;
+    margin: 0 auto; /* Center the container */
+}
 
-	/* Heading */
-	h1 {
-		font-size: 40px;
-		color: #2C3E50; /* Dark gray for heading */
-		margin-bottom: 25px;
-		font-weight: 600;
-	}
+/* Heading */
+h1 {
+    font-size: 28px; /* Reduce font size for a more compact look */
+    color: #2C3E50; /* Dark gray for heading */
+    margin-bottom: 20px;
+    font-weight: 600;
+}
 
-	#floatingGreeting {
+/* Floating greeting style */
+#floatingGreeting {
     position: fixed;
     top: 0;
     left: 50%;
@@ -65,187 +66,184 @@
     background-color: #FFFFFF;
     border: 2px solid #FF6347;
     border-radius: 20px;
-    padding: 10px 20px;
+    padding: 8px 16px; /* Adjust padding for better fit */
     box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
-    font-size: 24px; /* Increase font size */
-    font-weight: bold; /* Make text bold */
-    font-family: inherit; /* Keep the default font (same as the body) */
+    font-size: 18px; /* Smaller font size */
+    font-weight: bold;
+    font-family: inherit;
     z-index: 10000;
     text-align: center;
     display: none;
 }
 
-
-
 /* For smaller screens (Mobile) */
 @media (max-width: 600px) {
-    #floatingGreeting {
-        font-size: 20px; /* Adjust text size for mobile */
-        padding: 15px 30px; /* Adjust padding for smaller screens */
-        width: 90%; /* Ensure greeting bubble doesn't go off-screen */
-        max-width: 350px; /* Ensure it doesn't get too wide */
-    }
-
-    /* Button container for Go Back and Contact Me */
-    .button-container button {
-        width: 100%; /* Full width for mobile screens */
-        margin: 10px 0; /* Add margin between buttons */
-    }
-
-    /* Adjust the container padding for small screens */
+    /* Adjust container padding for mobile */
     .container {
         max-width: 100%;
-        padding: 20px;
+        padding: 15px;
     }
 
-    /* Adjust the heading size for small screens */
+    /* Adjust heading size */
     h1 {
-        font-size: 28px;
+        font-size: 24px; /* Smaller font for mobile */
     }
 
+    /* Make input and buttons fit in mobile view */
     input[type="text"], button {
         width: 100%;
     }
+
+    /* Adjust spacing for buttons */
+    .button-container button {
+        width: 100%;
+        margin: 8px 0; /* Adjust space between buttons */
+        font-size: 16px; /* Smaller font size for buttons */
+    }
+
+    #attendanceResults {
+        font-size: 14px; /* Smaller font size for result text */
+    }
+
+    #floatingGreeting {
+        font-size: 16px; /* Adjust greeting size for mobile */
+        padding: 10px 20px;
+        width: 90%;
+        max-width: 350px;
+    }
 }
 
+/* Input fields and button styles */
+input[type="text"], input[type="password"] {
+    padding: 14px;
+    font-size: 16px; /* Smaller font size */
+    width: 100%;
+    margin: 10px 0;
+    border-radius: 30px;
+    border: 2px solid #BDC3C7; /* Light gray border */
+    outline: none;
+    transition: all 0.3s ease-in-out;
+}
 
-	/* Input fields and button styles */
-	input[type="text"], input[type="password"] {
-		padding: 16px;
-		font-size: 18px;
-		width: 100%;
-		margin: 12px 0;
-		border-radius: 30px;
-		border: 2px solid #BDC3C7; /* Light gray border */
-		outline: none;
-		transition: all 0.3s ease-in-out;
-		font-family: inherit;
-	}
+/* Button styles */
+button {
+    padding: 14px 28px; /* Reduced padding for compact buttons */
+    font-size: 16px; /* Slightly smaller button text */
+    cursor: pointer;
+    border-radius: 30px;
+    border: none;
+    background: #FF6347; /* Tomato color background */
+    color: white;
+    margin: 10px 0;
+    transition: transform 0.3s ease, background-color 0.3s ease;
+    font-weight: 600;
+}
 
-	/* Button styles */
-	button {
-		padding: 16px 32px;
-		font-size: 20px;
-		cursor: pointer;
-		border-radius: 30px;
-		border: none;
-		background: #FF6347; /* Tomato color background */
-		color: white;
-		width: 100%;
-		margin: 18px 0;
-		transition: transform 0.3s ease, background-color 0.3s ease;
-		font-weight: 600;
-	}
-	/* Loading state styling */
-	#loading {
-		font-size: 18px;
-		color: #2C3E50; /* Dark gray text for loading */
-		margin-top: 20px;
-		display: none; /* Ensure it is hidden by default */
-	}
+/* Loading state styling */
+#loading {
+    font-size: 16px;
+    color: #2C3E50; /* Dark gray text for loading */
+    margin-top: 20px;
+    display: none; /* Ensure it is hidden by default */
+}
 
+/* Error message styling */
+.error {
+    color: #E74C3C; /* Red for error messages */
+    margin-top: 20px;
+    font-size: 14px;
+    display: none;
+}
 
-	/* Error message styling */
-	.error {
-		color: #E74C3C; /* Red for error messages */
-		margin-top: 20px;
-		font-size: 14px;
-		display: none;
-	}
+/* Result box styling */
+#attendanceResults {
+    display: none;
+    margin-top: 30px; /* Reduced margin for better fit */
+    padding: 20px;
+    background-color: #ECF0F1; /* Light gray background */
+    border: 1px solid #BDC3C7; /* Light gray border */
+    border-radius: 10px;
+    color: #2C3E50; /* Dark gray text */
+    box-shadow: 0 12px 40px rgba(0, 0, 0, 0.1);
+    font-size: 14px; /* Smaller font for results */
+    text-align: left;
+    line-height: 1.6;
+}
 
-	/* Result box styling */
-	#attendanceResults {
-		display: none;
-		margin-top: 50px; /* Ensure space between form and results */
-		padding: 30px;
-		background-color: #ECF0F1; /* Light gray background */
-		border: 1px solid #BDC3C7; /* Light gray border */
-		border-radius: 10px;
-		color: #2C3E50; /* Dark gray text */
-		box-shadow: 0 12px 40px rgba(0, 0, 0, 0.1);
-		font-size: 16px;
-		text-align: left;
-		line-height: 1.8;
-	}
- /* Result header */
-        #attendanceResults h4 {
-            font-size: 23px;
-            color: #FF6347; /* Tomato for headers */
-            margin-bottom: 15px;
-        }
-        /* Result header */
-        #attendanceResults h3 {
-            font-size: 16px;
-            color: #2C3E50; /* Tomato for headers */
-            margin-bottom: 15px;
-        }
-        /* List styling in results */
-        #attendanceResults ul {
-            list-style-type: none;
-            padding: 0;
-        }
+#attendanceResults h4 {
+    font-size: 20px; /* Reduced header size */
+    color: #FF6347; /* Tomato for headers */
+    margin-bottom: 12px;
+}
 
-        #attendanceResults li {
-            font-size: 14px;
-            margin: 10px 0;
-        }
+#attendanceResults h3 {
+    font-size: 14px; /* Smaller subheading font */
+    color: #2C3E50; /* Dark gray text */
+    margin-bottom: 10px;
+}
 
-        #attendanceResults li strong {
-            color: #2C3E50; /* Tomato for subject names */
-        }
-		
-		 /* Flex container for Go Back and Contact Me buttons */
-        .button-container {
-            display: flex;
-            justify-content: center;
-            gap: 10px; /* Space between buttons */
-        }
+/* List styling in results */
+#attendanceResults ul {
+    list-style-type: none;
+    padding: 0;
+}
 
-	/* Footer styling */
-	#footer {
-		position: fixed;
-		bottom: 0;
-		width: 100%;
-		padding: 10px 0;
-		background-color: #FFFFFF;
-		box-shadow: 0 -2px 8px rgba(0, 0, 0, 0.1);
-		text-align: center;
-		font-size: 16px;
-		color: #BDC3C7;
-	}
+#attendanceResults li {
+    font-size: 12px; /* Smaller list font */
+    margin: 8px 0;
+}
 
-	/* For better mobile experience */
-	@media (max-width: 600px) {
-		#floatingGreeting {
-			font-size: 16px;
-			padding: 8px 16px;
-		}
+#attendanceResults li strong {
+    color: #2C3E50; /* Dark gray for subject names */
+}
 
-		/* Adjust for small screens */
-		.container {
-			max-width: 100%;
-			padding: 20px;
-		}
+/* Footer styling */
+#footer {
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    padding: 10px 0;
+    background-color: #FFFFFF;
+    box-shadow: 0 -2px 8px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    font-size: 14px; /* Smaller footer text */
+    color: #BDC3C7;
+}
 
-		h1 {
-			font-size: 28px;
-		}
+#footer a {
+    text-decoration: none;
+    color: #FF6347; /* Tomato color for the link */
+}
 
-		input[type="text"], button {
-			width: 100%;
-		}
-	}
+/* Button container for View Marks and Follow me */
+.button-container {
+    display: flex;
+    justify-content: space-between; /* Align buttons on the same line */
+    gap: 10px; /* Space between buttons */
+    flex-wrap: wrap; /* Wrap to the next line if needed */
+    margin-top: 20px; /* Space before buttons */
+}
 
-	/* Ensure we can scroll content */
-	html, body {
-		height: 100%; /* Full viewport height */
-		overflow-x: hidden; /* Prevent horizontal scroll */
-		overflow-y: auto; /* Allow vertical scrolling */
-	}
+/* Button for "Go Back" should be on the next line */
+.button-container .go-back {
+    width: 100%; /* Full width for "Go Back" */
+    font-size: 16px; /* Smaller font size */
+    margin-top: 15px;
+}
 
+/* Adjust button size for mobile */
+@media (max-width: 600px) {
+    .button-container button {
+        width: 48%; /* Slightly smaller buttons */
+        font-size: 14px; /* Reduce button text size */
+    }
 
+    .button-container .go-back {
+        width: 100%;
+    }
+}
+</style>
 
-	</style>
 
 	</head>
 	<body>
@@ -274,13 +272,18 @@
 	<div id="attendanceResults"></div>
 
 
-			<!-- Button container (Go Back and Contact Me buttons) -->
-			<div id="buttonContainer" class="button-container" style="display: none;">
-				<!-- Go Back button (hidden initially) -->
-				<button id="goBackButton" onclick="goBack()">Go Back</button>
-				<!-- Contact Me button (hidden initially) -->
-				<button id="contactMeButton" onclick="contactMe()">View CIE Marks</button>
-			</div>
+			<!-- Button container with Instagram Link -->
+<div id="buttonContainer" class="button-container" style="display: none;">
+  <button id="goBackButton" onclick="goBack()">Go Back</button>
+  <button id="contactMeButton" onclick="contactMe()">View CIE Marks</button>
+  <!-- Instagram Button -->
+  <button id="instagramButton">
+    <a href="https://www.instagram.com/vardan.19" target="_blank" style="color: white; text-decoration: none; display: block; padding: 16px 32px; background-color: #FF6347; border-radius: 30px;">
+      Follow me on Instagram
+    </a>
+  </button>
+</div>
+
 			
 		</div>
 
