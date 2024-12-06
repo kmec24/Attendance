@@ -1,421 +1,454 @@
-	<!DOCTYPE html>
-	<html lang="en">
-	<head>
-		<meta charset="UTF-8">
-		<meta name="viewport" content="width=device-width, initial-scale=1.0">
-		<title>Attendance Viewer</title>
-		
-		<!-- Link to Google Fonts (Poppins font) -->
-		<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
-		<!-- Add a new font link to the head section -->
 
-
-<style>
-/* General reset */
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-}
-
-/* Apply Poppins font to all elements */
-body, h1, h2, h3, h4, h5, h6, input, button, p {
-    font-family: 'Poppins', sans-serif;
-}
-
-/* Body styling */
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Attendance Viewer</title>
+  
+   <style>
+ /* General Styles */
 body {
-    font-family: 'Poppins', sans-serif;
-    background-color: #F4F7FA; /* Light gray background */
-    display: flex;
-    justify-content: center;
-    align-items: flex-start; /* Align items at the top */
-    min-height: 100vh;
-    flex-direction: column;
-    width: 100%; /* Ensure full width of the screen */
-    padding-top: 20px; /* Adjust space for the floating greeting */
-    overflow-x: hidden; /* Prevent horizontal scrolling */
-}
-
-/* Container for the form */
-.container {
-    background-color: #FFFFFF;
-    border-radius: 12px;
-    padding: 30px;
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
-    width: 100%;
-    max-width: 600px;
-    text-align: center;
-    margin: 0 auto; /* Center the container */
-}
-
-/* Heading */
-h1 {
-    font-size: 28px; /* Reduce font size for a more compact look */
-    color: #2C3E50; /* Dark gray for heading */
-    margin-bottom: 20px;
-    font-weight: 600;
-}
-
-/* Floating greeting style */
-#floatingGreeting {
-    position: fixed;
-    top: 0;
-    left: 50%;
-    transform: translateX(-50%);
-    background-color: #FFFFFF;
-    border: 2px solid #FF6347;
-    border-radius: 20px;
-    padding: 8px 16px; /* Adjust padding for better fit */
-    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
-    font-size: 18px; /* Smaller font size */
-    font-weight: bold;
-    font-family: inherit;
-    z-index: 10000;
-    text-align: center;
-    display: none;
-}
-
-/* For smaller screens (Mobile) */
-@media (max-width: 600px) {
-    /* Adjust container padding for mobile */
-    .container {
-        max-width: 100%;
-        padding: 15px;
-    }
-
-    /* Adjust heading size */
-    h1 {
-        font-size: 24px; /* Smaller font for mobile */
-    }
-
-    /* Make input and buttons fit in mobile view */
-    input[type="text"], button {
-        width: 100%;
-    }
-
-    /* Adjust spacing for buttons */
-    .button-container button {
-        width: 100%;
-        margin: 8px 0; /* Adjust space between buttons */
-        font-size: 16px; /* Smaller font size for buttons */
-    }
-
-    #attendanceResults {
-        font-size: 14px; /* Smaller font size for result text */
-    }
-
-    #floatingGreeting {
-        font-size: 16px; /* Adjust greeting size for mobile */
-        padding: 10px 20px;
-        width: 90%;
-        max-width: 350px;
-    }
-}
-
-/* Input fields and button styles */
-input[type="text"], input[type="password"] {
-    padding: 14px;
-    font-size: 16px; /* Smaller font size */
-    width: 100%;
-    margin: 10px 0;
-    border-radius: 30px;
-    border: 2px solid #BDC3C7; /* Light gray border */
-    outline: none;
-    transition: all 0.3s ease-in-out;
-}
-
-/* Button styles */
-button {
-    padding: 14px 28px; /* Reduced padding for compact buttons */
-    font-size: 16px; /* Slightly smaller button text */
-    cursor: pointer;
-    border-radius: 30px;
-    border: none;
-    background: #FF6347; /* Tomato color background */
-    color: white;
-    margin: 10px 0;
-    transition: transform 0.3s ease, background-color 0.3s ease;
-    font-weight: 600;
-}
-
-/* Loading state styling */
-#loading {
-    font-size: 16px;
-    color: #2C3E50; /* Dark gray text for loading */
-    margin-top: 20px;
-    display: none; /* Ensure it is hidden by default */
-}
-
-/* Error message styling */
-.error {
-    color: #E74C3C; /* Red for error messages */
-    margin-top: 20px;
-    font-size: 14px;
-    display: none;
-}
-
-/* Result box styling */
-#attendanceResults {
-    display: none;
-    margin-top: 30px; /* Reduced margin for better fit */
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     padding: 20px;
-    background-color: #ECF0F1; /* Light gray background */
-    border: 1px solid #BDC3C7; /* Light gray border */
-    border-radius: 10px;
-    color: #2C3E50; /* Dark gray text */
-    box-shadow: 0 12px 40px rgba(0, 0, 0, 0.1);
-    font-size: 14px; /* Smaller font for results */
-    text-align: left;
-    line-height: 1.6;
+    margin: 0;
+    background-color: #f4f7fb; /* Lighter background for a cleaner look */
 }
 
-#attendanceResults h4 {
-    font-size: 20px; /* Reduced header size */
-    color: #FF6347; /* Tomato for headers */
-    margin-bottom: 12px;
+.home-ui {
+    text-align: center;
+    padding: 40px;
+    background-color: #ffffff; /* White background for contrast */
+    border-radius: 15px; /* Round corners for a modern look */
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1); /* Soft shadow */
+    margin: 40px auto;
+    max-width: 400px; /* Center the container */
+    transition: transform 0.3s ease-in-out; /* Add transition effect */
 }
 
-#attendanceResults h3 {
-    font-size: 14px; /* Smaller subheading font */
-    color: #2C3E50; /* Dark gray text */
+.home-ui:hover {
+    transform: scale(1.02); /* Slight scale effect on hover */
+}
+
+.welcome-box h2 {
+    font-size: 2.2em;
+    color: #333; /* Dark text for the heading */
+    font-weight: bold;
+    margin-bottom: 15px;
+}
+
+.welcome-box p {
+    font-size: 1.1em;
+    color: #666; /* Soft text color */
+    line-height: 1.5;
+}
+
+.input-box {
+    margin-top: 20px;
+}
+
+.input-box input {
+    padding: 12px 20px;
+    font-size: 1.2em;
+    width: 80%;
+    border-radius: 8px; /* Rounded corners */
+    border: 1px solid #ddd; /* Soft border color */
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1); /* Soft shadow */
+    outline: none;
+    transition: border 0.3s ease-in-out;
+}
+
+.input-box input:focus {
+    border: 1px solid #007bff; /* Blue border on focus for better visibility */
+    box-shadow: 0 0 5px rgba(0, 123, 255, 0.5); /* Focus effect */
+}
+
+.input-box input::placeholder {
+    color: #aaa; /* Lighter placeholder text */
+}
+
+.footer {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    background-color: #333;
+    color: white;
+    text-align: center;
+    padding: 10px 0;
+    font-size: 0.9em;
+}
+
+/* Old CSS Updates */
+.welcome-box h2 {
+    font-size: 2em;
+    color: #333; /* Black text for greeting */
     margin-bottom: 10px;
 }
 
-/* List styling in results */
-#attendanceResults ul {
-    list-style-type: none;
-    padding: 0;
+.welcome-box p {
+    font-size: 1.2em;
+    color: #666; /* Blackish text */
 }
 
-#attendanceResults li {
-    font-size: 12px; /* Smaller list font */
-    margin: 8px 0;
+./* Styling for the Button under the Input Box */
+.input-box {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 15px; /* Space between input and button */
 }
 
-#attendanceResults li strong {
-    color: #2C3E50; /* Dark gray for subject names */
+.view-button {
+    padding: 12px 30px;
+    font-size: 1.2em;
+    background-color: #007bff; /* Blue color */
+    color: white;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.3s ease;
+    width: 70%; /* Makes the button full-width to match the input */
+    max-width: 250px; /* Limits the button width */
 }
 
-/* Footer styling */
-#footer {
+.view-button:hover {
+    background-color: #0056b3; /* Darker blue on hover */
+    transform: scale(1.05); /* Slight scale effect */
+}
+
+.view-button:focus {
+    outline: none; /* Removes the focus outline */
+}
+
+.view-button:active {
+    transform: scale(0.98); /* Slightly shrinks on click */
+}
+
+
+/* Add the tomato red color for the name */
+.welcome-box span.name {
+    color: tomato; /* Tomato color for the name */
+    font-weight: bold;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    padding: 20px;
+    margin: 0;
+    background-color: #f4f4f9; /* Grey background for the entire body */
+}
+
+/* Keeping table styling as before */
+.attendance-table, .subject-table {
+    width: 100%;
+    border-collapse: collapse;
+    table-layout: fixed;
+}
+
+.attendance-table th, .attendance-table td, .subject-table th, .subject-table td {
+    padding: 8px;
+    text-align: center;
+    border: 1px solid #ddd;
+    font-size: 12px;
+}
+
+.attendance-table th, .subject-table th {
+    background-color: #007bff;
+    color: white;
+}
+
+.attendance-table td.present {
+    background-color: #4caf50;
+    color: white;
+}
+
+.attendance-table td.absent {
+    background-color: #f44336;
+    color: white;
+}
+
+.attendance-table td.nosessions {
+    background-color: #9e9e9e;
+    color: white;
+}
+
+.attendance-table td.circle {
+    display: inline-block;
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    text-align: center;
+    vertical-align: middle;
+    line-height: 10px;
+    font-size: 7px;
+}
+
+.attendance-table td.circle.present {
+    background-color: #4caf50;
+    color: white;
+}
+
+.attendance-table td.circle.absent {
+    background-color: #f44336;
+    color: white;
+}
+
+.attendance-table td.circle.nosessions {
+    background-color: #9e9e9e;
+    color: white;
+}
+
+.total-percentage {
+    font-weight: bold;
+    font-size: 1.5em;
+    margin-bottom: 20px;
+    text-align: center;
+    color: black; /* Black text for general content */
+}
+
+.student-name {
+    color: tomato; /* Tomato red for student name */
+    font-weight: bold;
+    font-size: 1.5em;
+    text-align: center;
+}
+
+.box-header {
+    font-size: 1.3em;
+    color: #333;
+    margin-bottom: 10px;
+    font-weight: bold;
+}
+
+footer {
     position: fixed;
     bottom: 0;
+    left: 0;
     width: 100%;
-    padding: 10px 0;
-    background-color: #FFFFFF;
-    box-shadow: 0 -2px 8px rgba(0, 0, 0, 0.1);
+    background-color: #333;
+    color: white;
     text-align: center;
-    font-size: 14px; /* Smaller footer text */
-    color: #BDC3C7;
+    padding: 10px 0;
+    font-size: 0.9em;
 }
 
-#footer a {
-    text-decoration: none;
-    color: #FF6347; /* Tomato color for the link */
+footer a {
+    color: #ff6347; /* Tomato color for name */
+    text-decoration: none; /* Removes underline */
+    font-weight: bold; /* Make name bold */
 }
 
-
-/* Instagram logo fixed to bottom-right corner */
-#instagramLogo {
+footer a:hover {
+    color: #ff4500; /* Change color on hover */
+}
+#loading {
     position: fixed;
-    bottom: 0px;
-    right: 20px;
-    width: 50px;
-    height: 50px;
-    background-image: url('https://img.icons8.com/fluency-systems-regular/48/FD7E14/instagram-new--v1.png');
-    background-size: cover;
-    background-position: center;
-    border-radius: 50%;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-    cursor: pointer;
-    z-index: 10000;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 1.5em;
+    color: #333; /* Dark text color */
+    text-align: center;
+    background: rgba(255, 255, 255, 0.8); /* Slight white background */
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 2px 15px rgba(0, 0, 0, 0.2);
+    display: none; /* Hidden by default */
+    transition: opacity 0.3s ease-in-out;
 }
 
-
-/* Button container for View Marks and Follow me */
-.button-container {
-    display: flex;
-    justify-content: space-between; /* Align buttons on the same line */
-    gap: 10px; /* Space between buttons */
-    flex-wrap: wrap; /* Wrap to the next line if needed */
-    margin-top: 20px; /* Space before buttons */
+#loading span {
+    font-size: 2em; /* Slightly larger emoji */
+    animation: pulse 1.5s infinite;
 }
 
-/* Button for "Go Back" should be on the next line */
-.button-container .go-back {
-    width: 100%; /* Full width for "Go Back" */
-    font-size: 16px; /* Smaller font size */
-    margin-top: 15px;
+@keyframes pulse {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.2); }
+    100% { transform: scale(1); }
 }
 
-/* Adjust button size for mobile */
 @media (max-width: 600px) {
-    .button-container button {
-        width: 48%; /* Slightly smaller buttons */
-        font-size: 14px; /* Reduce button text size */
+    .attendance-table td, .subject-table td {
+        font-size: 10px;
     }
 
-    .button-container .go-back {
-        width: 100%;
+    .attendance-table th, .subject-table th {
+        font-size: 12px;
+    }
+
+    .attendance-table td.circle {
+        width: 6px;
+        height: 6px;
+        font-size: 7px;
+        line-height: 6px;
+    }
+
+    .box {
+        padding: 15px;
     }
 }
-</style>
 
-
-	</head>
-	<body>
-
-		<div class="container">
-			<h1>Attendance Viewer For KMEC 1st Year's</h1>
-			
-			<form id="attendanceForm">
-				<label for="mobile_number" style="font-size: 18px; color: #333;"></label>
-				<input type="text" id="mobile_number" name="mobile_number" placeholder="Enter your parent's mobile number" maxlength="10" required>
-				<button type="submit">Get Attendance</button>
-				
-<a href="https://www.instagram.com/vardan.19" target="_blank" style="color: tomato;"></a>
-
-			</form>
-
-			<!-- Error message will show if mobile number is missing or there's an issue -->
-			<div id="errorMessage" class="error"></div>
-
-			<!-- Loading message while waiting for API response -->
-			<div id="loading">Loading...</div>
-
-		 
-
-	<!-- Result Box (hidden initially) -->
-	<div id="attendanceResults"></div>
-
-
-			<!-- Button container with Instagram Link -->
-<div id="buttonContainer" class="button-container" style="display: none;">
-  <button id="goBackButton" onclick="goBack()">Go Back</button>
-  <button id="contactMeButton" onclick="contactMe()">View CIE Marks</button>
-  <!-- Instagram Button -->
-  
+    </style>
+</head>
+<body>
+  <div id="home-ui" class="home-ui">
+    <div class="welcome-box">
+        <h2>NGIT Attendance Viewer</h2>
+        <p>Enter your Parents mobile number</p>
+    </div>
+    <div class="input-box">
+        <input type="text" id="rollno" placeholder="Mobile Number" maxlength="10">
+      
+        <button class="view-button">Get attendance</button>
+    </div>
 </div>
 
-			
-		</div>
-
-		<script>
-		// Function to reload the page
-		function goBack() {
-			location.reload(); // Reloads the current page
-		}
-			// Function to mask the input number while typing
-			const inputField = document.getElementById('mobile_number');
-
-			inputField.addEventListener('input', function() {
-				// Hide the input field text while typing by switching to password type
-				inputField.type = 'text';
-			});
-			
-		// Function to fetch and display the user's name in the floating bubble with dynamic greeting and emoji
-	function fetchAndDisplayName(mobileNumber) {
-		// Get current hours
-		const hours = new Date().getHours();
-		let greeting;
-
-		// Determine the greeting based on the time of day with emojis
-		if (hours >= 00 && hours < 12) {
-			greeting = "Good Morning ☀️";
-		} else if (hours >= 12 && hours < 17) {
-			greeting = "Good Afternoon 🌤️";
-		} else if (hours >= 17 && hours < 24) {
-			greeting = "Good Evening 🌆";
-		} else {
-			greeting = "Good Night 🌙";
-		}
-
-		// Fetch the user's name
-		fetch(`https://vardanapi02.89determined.workers.dev/?mobile_number=${mobileNumber}`)
-			.then(response => response.text()) // Get the plain text name from the response
-			.then(name => {
-				// Update the floating greeting
-				const floatingGreeting = document.getElementById('floatingGreeting');
-				floatingGreeting.innerHTML = `${greeting},<br><span>${name}</span>`;
-				floatingGreeting.style.display = 'block'; // Show the greeting bubble
-			})
-			.catch(error => {
-				console.error('Failed to fetch user name:', error);
-			});
-	}
 
 
 
-	// Handle form submission
-document.getElementById("attendanceForm").addEventListener("submit", function(event) {
-    event.preventDefault();
+    <div id="attendance-result"></div>
+ 
 
-    const mobileNumber = document.getElementById("mobile_number").value;
+	<div id="loading">
+    <span></span><span></span>
+</div>
 
-    // Validate if the mobile number is exactly 10 digits
-    if (!mobileNumber || mobileNumber.length !== 10 || isNaN(mobileNumber)) {
-        document.getElementById('errorMessage').style.display = 'block';
-        document.getElementById('errorMessage').textContent = 'Please enter a valid 10-digit mobile number.';
+   <footer>
+    <span>Designed by <a href="https://www.instagram.com/vardn.19" target="_blank">Vardan</a></span>
+</footer>
+
+
+
+<script>
+
+async function fetchAttendance() {
+    const rollno = document.getElementById('rollno').value;
+    if (rollno.length !== 10) {
+        alert("Please enter a valid 10-digit Mobile number.");
         return;
     }
 
-    // Store the mobile number in localStorage
-    localStorage.setItem('mobileNumber', mobileNumber);
+    
+    const resultDiv = document.getElementById('attendance-result');
+    resultDiv.innerHTML = `<p>Processing data... Just a moment!</p>`;
 
-    // Hide form and heading
-    document.querySelector('h1').style.display = 'none';
-    document.getElementById('attendanceForm').style.display = 'none';
+    try {
+        
+        const attendanceResponse = await fetch(`https://vardanapi01.89determined.workers.dev/?mobile_number=${rollno}`);
+        if (!attendanceResponse.ok) throw new Error('Incorrect number, Enter your parents number');
 
-    // Clear previous results and error message
-    document.getElementById('attendanceResults').style.display = 'none';
-    document.getElementById('attendanceResults').innerHTML = "";
-    document.getElementById('errorMessage').style.display = 'none';
+        const attendanceData = await attendanceResponse.json();
 
-    // Show loading message
-    document.getElementById('loading').style.display = 'block';
+       
+        const nameResponse = await fetch(`https://vardanapi02.89determined.workers.dev/?mobile_number=${rollno}`);
+        if (!nameResponse.ok) throw new Error('Incorrect number, Enter your parents number');
 
-    // First, fetch and display the user's name
-    fetchAndDisplayName(mobileNumber);
+        const studentName = await nameResponse.text();
 
-    // Make the API request to fetch attendance results
-    fetch(`https://vardanapi01.89determined.workers.dev/?mobile_number=${mobileNumber}`)
-        .then(response => response.text())
-        .then(html => {
-            document.getElementById('loading').style.display = 'none';
-            document.getElementById('attendanceResults').style.display = 'block';
-            document.getElementById('attendanceResults').innerHTML = html;
+      
+		document.querySelector('.home-ui').style.display = 'none';
+        displayAttendance(attendanceData, studentName.trim());
+    } catch (error) {
+        resultDiv.innerHTML = `<p style="color:red;">${error.message}</p>`;
+    }
+}
 
-            // Show Go Back and CIE Marks buttons
-            document.getElementById('buttonContainer').style.display = 'flex';
-        })
-        .catch(error => {
-            document.getElementById('loading').style.display = 'none';
-            document.getElementById('errorMessage').style.display = 'block';
-            document.getElementById('errorMessage').textContent = 'Failed to retrieve attendance data.';
+function getGreeting() {
+    const hour = new Date().getHours();
+    if (hour < 12) return "Good Morning 🌞,";
+    if (hour < 18) return "Good Afternoon 🌞,️";
+    return "Good Evening 🌃,";
+}
+
+function displayAttendance(data, studentName) {
+   
+    document.getElementById('home-ui').classList.add('hidden');
+
+    const resultDiv = document.getElementById('attendance-result');
+    resultDiv.innerHTML = '';
+
+  
+    const greeting = getGreeting();
+    const studentNameHTML = `
+    <div class="total-percentage">
+        <span>${greeting}</span><br>
+        <span class="student-name">${studentName}</span>
+    </div>`;
+
+
+    const totalPercentage = data.overallattperformance.totalpercentage;
+    const totalPercentageHTML = `<div class="total-percentage">Overall Attendance: ${totalPercentage}%</div>`;
+
+
+    let dayHTML = `<div class="box">
+        <div class="box-header">Day-wise Attendance:</div>
+        <table class="attendance-table">
+            <thead>
+                <tr><th>Date</th><th>Sessions</th></tr>
+            </thead>
+            <tbody>`;
+
+    data.attandance.dayobjects.forEach(day => {
+        let sessionHTML = '';
+        Object.keys(day.sessions).forEach(session => {
+            const status = getSessionStatus(day.sessions[session]);
+            sessionHTML += `<td class="circle ${status}">${getSessionIcon(day.sessions[session])}</td>`;
         });
-});
+        dayHTML += `<tr><td>${day.date}</td>${sessionHTML}</tr>`;
+    });
+
+    dayHTML += `</tbody></table></div>`;
+
+ 
+    let subjectHTML = `<div class="box">
+        <div class="box-header">Subject-wise Attendance:</div>
+        <table class="subject-table">
+            <thead>
+                <tr><th>Subject</th><th>Attendance</th></tr>
+            </thead>
+            <tbody>`;
+
+    data.overallattperformance.overall.forEach(subject => {
+        let percentage = subject.percentage !== '--' ? parseFloat(subject.percentage) : 0;
+        let practical = subject.practical !== '--' ? parseFloat(subject.practical) : 0;
+
+        const totalAttendance = Math.min(percentage + practical, 100);
+        subjectHTML += `<tr>
+            <td>${subject.subjectname}</td>
+            <td>${totalAttendance}%</td>
+        </tr>`;
+    });
+
+    subjectHTML += `</tbody></table></div>`;
 
 
-			// Function to open Instagram profile when Contact Me is clicked
-			function contactMe() {
-				window.open('cie.html');
-			}
-		</script>
+    resultDiv.innerHTML = studentNameHTML + totalPercentageHTML + dayHTML + subjectHTML;
+}
 
-		<!-- Footer -->
-		<div id="footer">
-			
-			<p>Designed by <strong><a href="https://www.instagram.com/vardn.19" target="_blank" style="color: #FF6347; text-decoration: none;">Vardan(NGIT)</a></strong></p>
-		</div>
-	<!-- Floating Greeting -->
-	<div id="floatingGreeting" style="display: none;"></div>
+function getSessionStatus(sessionValue) {
+    if (sessionValue === "1") return 'present';
+    if (sessionValue === "0") return 'absent';
+    return 'nosessions';
+}
 
+function getSessionIcon(sessionValue) {
+    if (sessionValue === "1") return '✔';
+    if (sessionValue === "0") return '✘';
+    return '○';
+}
 
-	<a href="https://www.instagram.com/vardn.19/" target="_blank">
-    <div id="instagramLogo"></div>
-</a>
+function checkRollno() {
+    const rollno = document.getElementById('rollno').value;
+    if (rollno.length === 10) {
+        fetchAttendance();
+    }
+}
 
+document.getElementById('rollno').addEventListener('input', checkRollno);
 
-	</body>
-	</html>
+</script>
+
+</body>
+</html>
